@@ -1,0 +1,34 @@
+﻿bun : $ svelte-kit sync && svelte-check --tsconfig ./tsconfig.json
+At line:15 char:2169
++ ... ces\app\node_modules\@vscode\ripgrep\bin'; bun run check 2>&1 | Out-F ...
++                                                ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ($ svelte-kit sy..../tsconfig.json:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading svelte-check in workspace: e:\电脑\新建文件夹\zg\zg\warcon-main
+Getting Svelte diagnostics...
+
+e:\电脑\新建文件夹\zg\zg\warcon-main\[32msrc\routes\(public)\activate\+page.svelte[39m:8:20
+[33mWarn[39m: This reference only captures the initial value of `form`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	let busy = $state(false);
+	let code = $state([35mform[36m?.code ?? data.code ?? '');
+	let steamId = $state(form?.steamId ?? '');[39m
+
+e:\电脑\新建文件夹\zg\zg\warcon-main\[32msrc\routes\(public)\activate\+page.svelte[39m:8:34
+[33mWarn[39m: This reference only captures the initial value of `data`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	let busy = $state(false);
+	let code = $state(form?.code ?? [35mdata[36m.code ?? '');
+	let steamId = $state(form?.steamId ?? '');[39m
+
+e:\电脑\新建文件夹\zg\zg\warcon-main\[32msrc\routes\(public)\activate\+page.svelte[39m:9:23
+[33mWarn[39m: This reference only captures the initial value of `form`. Did you mean to reference it inside a derived instead?
+https://svelte.dev/e/state_referenced_locally (svelte)
+[36m	let code = $state(form?.code ?? data.code ?? '');
+	let steamId = $state([35mform[36m?.steamId ?? '');
+	let steamHref = $derived(`/activate/steam?code=${encodeURIComponent(code.trim())}`);[39m
+
+====================================
+[33msvelte-check found 0 errors and 3 warnings in 1 file
+[39m

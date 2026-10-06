@@ -1,0 +1,1121 @@
+﻿bun test v1.4.2 (744846f84)
+bun : 
+At line:15 char:2169
++ ... esources\app\node_modules\@vscode\ripgrep\bin'; bun test 2>&1 | Out-F ...
++                                                     ~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+src\lib\capabilities.test.ts:
+(pass) catalogue > every capability has display info and lands in exactly one group [0.99ms]
+(pass) catalogue > built-ins nest: viewer ⊂ operator ⊂ admin, and all include view [0.06ms]
+(pass) parseCapabilities > dedupes and returns canonical order [0.08ms]
+(pass) parseCapabilities > rejects unknown names and non-lists [0.19ms]
+(pass) parseCapabilities > knownCapabilities drops what it does not recognise instead of throwing [0.03ms]
+(pass) can > works on arrays, sets and nothing [0.03ms]
+52 | 		expect(can(new Set(['chat.send']), 'bans.manage')).toBe(false);
+53 | 		expect(can(null, 'server.view')).toBe(false);
+54 | 	});
+55 | 
+56 | 	test('summary uses labels in catalogue order', () => {
+57 | 		expect(capabilitySummary(['bans.manage', 'server.view'])).toBe('View · Bans');
+                                                                 ^
+error: expect(received).toBe(expected)
+
+Expected: "View · Bans"
+Received: "查看 · 封禁"
+
+      at <anonymous> (E:\电脑\新建文件夹\zg\zg\warcon-main\src\lib\capabilities.test.ts:57:61)
+(fail) can > summary uses labels in catalogue order [0.61ms]
+
+src\lib\causes.test.ts:
+(pass) causeLabel > named weapons and vehicles [0.08ms]
+(pass) causeLabel > unnamed tags read from their segments [0.28ms]
+(pass) causeLabel > the named causes as filter choices, alphabetical by label [0.56ms]
+(pass) causeLabel > nothing for no cause [0.01ms]
+(pass) causeKind > by prefix [0.02ms]
+
+src\lib\config-doc.test.ts:
+(pass) parseIni > reads scalars, arrays and sections case-insensitively [0.27ms]
+(pass) parseIni > strips quotes from scalar values and warns on junk [0.02ms]
+(pass) parseIni > handles a BOM and array commands [0.03ms]
+(pass) setScalarInText > rewrites an existing key in place and keeps everything else byte for byte [0.13ms]
+(pass) setScalarInText > matches keys case-insensitively but keeps the caller spelling [0.02ms]
+(pass) setScalarInText > adds a missing key at the end of its section, before the blank separator [0.04ms]
+(pass) setScalarInText > appends a missing section [0.19ms]
+(pass) setScalarInText > does not mistake array lines for the scalar [0.03ms]
+(pass) setScalarInText > quotes values that need it [0.02ms]
+(pass) setScalarInText > a parse of the edited text sees the new value [0.05ms]
+(pass) credentials > the RCON password, its hash and the feed token are hidden, commented out or not [0.19ms]
+(pass) credentials > nothing else moves: the join password, empty values, line endings [0.04ms]
+(pass) credentials > keys match whatever their case or array prefix [0.02ms]
+(pass) credentials > an untouched document goes back exactly as the server had it [0.31ms]
+(pass) credentials > an edit elsewhere keeps the credentials; a typed credential stays as typed [0.14ms]
+(pass) credentials > a removed credential line stays removed [0.06ms]
+(pass) credentials > a placeholder with nothing behind it is refused, never written as the password [0.09ms]
+(pass) credentials > a byte order mark the client dropped does not orphan the first section [0.03ms]
+
+src\lib\config-fields.test.ts:
+(pass) appliesFor > a key override wins over its section [0.09ms]
+(pass) appliesFor > an empty override list answers for all keys; no list or no section falls back [0.02ms]
+(pass) lockedFor > only writable: false pins a field, case-insensitively, carrying the switch [0.11ms]
+(pass) lockedFor > an override without writable (CL-499480 schema) is editable [0.02ms]
+(pass) lockedKeys lists every pinned key, including ones the form has no field for [0.05ms]
+
+src\lib\discord-invite.test.ts:
+(pass) parseDiscordInvite > accepts the two invite forms and returns the short one [0.16ms]
+(pass) parseDiscordInvite > refuses anything that is not an invite [0.06ms]
+
+src\lib\enrolment.test.ts:
+(pass) assessEnrolment > a bare password account fails on both counts [0.07ms]
+(pass) assessEnrolment > password + authenticator is one way in, still short of two [0.04ms]
+(pass) assessEnrolment > passkey + Discord satisfies a member and an owner [0.02ms]
+(pass) assessEnrolment > two passkeys are enough for a member but an owner needs SSO or a recovery key [0.02ms]
+(pass) assessEnrolment > password + 2FA + recovery key is complete for an owner [0.01ms]
+(pass) assessEnrolment > a self-declared steam id is not a provider; only a linked account counts [0.01ms]
+(pass) enrolmentStatus > complete accounts are never due [0.08ms]
+(pass) enrolmentStatus > grace has not started until the first sign-in [0.01ms]
+(pass) enrolmentStatus > owners get the shorter grace [0.05ms]
+(pass) enrolmentStatus > zero days enforces at once [0.01ms]
+
+src\lib\features.test.ts:
+(pass) effectiveFeatures > nothing is public without the allowance, whatever the server asks for [0.04ms]
+(pass) effectiveFeatures > an allowance alone opens nothing; the server switch is still needed [0.01ms]
+(pass) effectiveFeatures > each feature is judged on its own pair of switches [0.20ms]
+(pass) featureState > a disallowed switch carries the reason, an allowed one none [0.04ms]
+
+src\lib\format.test.ts:
+ 5 | const HOUR = 60 * MIN;
+ 6 | const DAY = 24 * HOUR;
+ 7 | 
+ 8 | describe('fmtSpan', () => {
+ 9 | 	test('picks the coarsest unit that still reads', () => {
+10 | 		expect(fmtSpan(0)).toBe('0 s');
+                          ^
+error: expect(received).toBe(expected)
+
+Expected: "0 s"
+Received: "0 秒"
+
+      at <anonymous> (E:\电脑\新建文件夹\zg\zg\warcon-main\src\lib\format.test.ts:10:22)
+(fail) fmtSpan > picks the coarsest unit that still reads [0.46ms]
+19 | });
+20 | 
+21 | describe('fmtAgo', () => {
+22 | 	const now = Date.parse('2026-09-17T12:00:00Z');
+23 | 	test('reads as a status line', () => {
+24 | 		expect(fmtAgo(now - 10_000, now)).toBe('just now');
+                                         ^
+error: expect(received).toBe(expected)
+
+Expected: "just now"
+Received: "刚刚"
+
+      at <anonymous> (E:\电脑\新建文件夹\zg\zg\warcon-main\src\lib\format.test.ts:24:37)
+(fail) fmtAgo > reads as a status line [0.39ms]
+25 | 		expect(fmtAgo(now - 2 * MIN, now)).toBe('2 min ago');
+26 | 		expect(fmtAgo(now - 4 * HOUR, now)).toBe('4 h ago');
+27 | 		expect(fmtAgo(now - 3 * DAY, now)).toBe('3 days ago');
+28 | 	});
+29 | 	test('takes ISO strings and never goes negative', () => {
+30 | 		expect(fmtAgo(new Date(now - 5 * MIN).toISOString(), now)).toBe('5 min ago');
+                                                                  ^
+error: expect(received).toBe(expected)
+
+Expected: "5 min ago"
+Received: "5 分钟前"
+
+      at <anonymous> (E:\电脑\新建文件夹\zg\zg\warcon-main\src\lib\format.test.ts:30:62)
+(fail) fmtAgo > takes ISO strings and never goes negative [0.31ms]
+(pass) fmtAgo > falls back to the date past a month [5.44ms]
+(pass) mapId: the name players know and the catalog id are one map [0.16ms]
+
+src\lib\kills.test.ts:
+(pass) parseKillFilter > reads what the page sends and drops the rest [0.11ms]
+(pass) parseKillFilter > an unknown kind or a bad distance is no filter [0.05ms]
+(pass) parseKillFilter > round-trips through its query parameters [0.04ms]
+(pass) killMatches > names by fragment, SteamIDs exactly, on the side asked for [0.11ms]
+(pass) killMatches > an environment kill has no killer to match [0.02ms]
+(pass) killMatches > cause exactly, distance at least [0.03ms]
+(pass) killMatches > kinds [0.09ms]
+(pass) killMatches > filters combine [0.02ms]
+
+src\lib\leaderboard.test.ts:
+(pass) matchResult > win or loss against the winner [0.06ms]
+(pass) matchResult > a faction that is not on the scoreboard (the holding team) has no result
+(pass) matchResult > no winner but a score is a draw [0.04ms]
+(pass) matchResult > no winner and no score is no result; so is a player with no faction [0.02ms]
+(pass) streak > counts the newest run of one kind [0.03ms]
+(pass) streak > skips matches without a result; a draw ends the run [0.02ms]
+(pass) ratios with zero denominators > K/D is kills alone with no deaths, nothing with neither [0.02ms]
+(pass) ratios with zero denominators > kills per hour needs playtime, and seed time is not playtime [0.02ms]
+(pass) ratios with zero denominators > win rate needs a match with a result [0.02ms]
+(pass) the playtime floor > a short visit is under it, an hour is on it [0.01ms]
+(pass) board query > parses what it knows and falls back on the rest [0.07ms]
+(pass) board query > round-trips through its parameters, defaults left out [0.04ms]
+(pass) board query > ranges start where they say; all time has no start [0.04ms]
+(pass) metricValue > reads each column through the same maths [0.04ms]
+(pass) groupCareer > counts matches by result and adds the kills and deaths under the same key [0.11ms]
+
+src\lib\matches.test.ts:
+(pass) awards > the five, judged as the page says [0.33ms]
+(pass) awards > none for a short match, and only what was earned [0.04ms]
+(pass) a match > is abandoned when it ended without scores [0.02ms]
+(pass) a match > lasts from its start to its end, or to now [0.03ms]
+(pass) a match > kills per minute needs time on [0.01ms]
+
+src\lib\poll.test.ts:
+(pass) a visibility change during an in-flight fn() does not start a second chain [1010.49ms]
+(pass) stop() ends the chain and a visibility change afterwards does nothing [141.57ms]
+
+src\lib\rates.test.ts:
+(pass) overview rates > a rate needs two readings and reads per second between them [0.04ms]
+(pass) overview rates > a counter that went backwards (a restart) gives no rate for that interval [0.01ms]
+(pass) overview rates > the mean of a histogram between readings is its sum over its count [0.07ms]
+(pass) overview rates > rates and sizes read at a glance [0.16ms]
+
+src\lib\reserved-doc.test.ts:
+(pass) reads the live build form [0.18ms]
+(pass) MaxReservedSlots is the held-back slot count, not a list cap; absent or junk is null [0.08ms]
+(pass) reads the quoted +Key form the reference ini uses [0.07ms]
+(pass) missing key or section is an empty list [0.04ms]
+(pass) writes the list back in place, keeps CRLF and every other line [0.22ms]
+(pass) removing the last id leaves an explicit empty array [0.03ms]
+(pass) mixed +Key lines collapse into one clear-and-add block; a missing section is appended [0.03ms]
+(pass) a bare Key=value line is replaced too, so a removed id cannot come back [0.03ms]
+
+src\lib\rotation-doc.test.ts:
+(pass) parses entries with one or several experiences and an optional alternator [0.17ms]
+(pass) formats the way the server writes them [0.04ms]
+(pass) reads the rotation section [0.10ms]
+(pass) writes it back in place, leaving the rest of the file alone [0.15ms]
+(pass) setArrayInText adds a block to a section that has none, or a missing section [0.07ms]
+
+src\lib\tick.test.ts:
+(pass) tick bands > each band starts at its own boundary [0.06ms]
+(pass) tick bands > the rewards the official console shows for the TLR default (24 s) [0.03ms]
+(pass) tick bands > full rate at 30 s and above, floor band below the range [0.02ms]
+(pass) tick bands > unknown cadence gives no reward [0.01ms]
+
+src\lib\uptime.test.ts:
+(pass) restartWindow > unknown start time is null [0.05ms]
+(pass) restartWindow > before the threshold: a window that opens later [0.02ms]
+(pass) restartWindow > past the threshold: due, restarting after this round [0.01ms]
+(pass) restartWindow > exactly on the threshold counts as due [0.01ms]
+(pass) restartWindow > no scheduled restart: uptime only [0.01ms]
+(pass) restartWindow > a start time in the future (clock skew) reads as just started
+(pass) fmtUptime > units [0.05ms]
+
+src\routes\page-loads.test.ts:
+(pass) page loads under (app) > there are pages to check [0.04ms]
+(pass) page loads under (app) > account/+page.server.ts checks access itself (requireUser) [0.04ms]
+(pass) page loads under (app) > account/+page.server.ts action 'defaultOrg' checks access itself (requireUser) [0.02ms]
+(pass) page loads under (app) > account/+page.server.ts action 'steam' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'password' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'removePassword' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'totpStart' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'totpConfirm' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'totpDisable' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'backupCodes' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'recoveryKey' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'recoveryKeyClear' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'revoke' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'linkDiscord' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'unlinkDiscord' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'linkSteam' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'unlinkSteam' checks access itself (requireUser)
+(pass) page loads under (app) > account/+page.server.ts action 'deleteAccount' checks access itself (requireUser)
+(pass) page loads under (app) > admin/+page.server.ts checks access itself (the site owner check)
+(pass) page loads under (app) > admin/settings/+page.server.ts checks access itself (the site owner check)
+(pass) page loads under (app) > admin/users/+page.server.ts checks access itself (the site owner check)
+(pass) page loads under (app) > audit/+page.server.ts checks access itself (requireUser)
+(pass) page loads under (app) > orgs/+page.server.ts checks access itself (requireUser)
+(pass) page loads under (app) > orgs/[id]/+page.server.ts checks access itself (requireOrgRole or requireListsRole)
+(pass) page loads under (app) > orgs/[id]/access/+page.server.ts checks access itself (requireOrgRole or requireListsRo
+le)
+(pass) page loads under (app) > orgs/[id]/bans/+page.server.ts checks access itself (requireOrgRole or requireListsRole
+)
+(pass) page loads under (app) > orgs/[id]/cards/+page.server.ts checks access itself (requireOrgRole or requireListsRol
+e)
+(pass) page loads under (app) > orgs/[id]/players/+page.server.ts checks access itself (requireOrgRole or requireListsR
+ole)
+(pass) page loads under (app) > orgs/[id]/reserved/+page.server.ts checks access itself (requireOrgRole or requireLists
+Role)
+(pass) page loads under (app) > orgs/[id]/roles/+page.server.ts checks access itself (requireOrgRole or requireListsRol
+e)
+(pass) page loads under (app) > server/[id]/automation/+page.server.ts checks access itself (requireServerCap (or the l
+ayout through parent())) [0.02ms]
+(pass) page loads under (app) > server/[id]/bans/+page.server.ts checks access itself (requireServerCap (or the layout 
+through parent()))
+(pass) page loads under (app) > server/[id]/matches/[matchId]/+page.server.ts checks access itself (requireServerCap (o
+r the layout through parent()))
+(pass) page loads under (app) > server/[id]/players/[steamId]/+page.server.ts checks access itself (requireServerCap (o
+r the layout through parent()))
+(pass) page loads under (app) > server/[id]/sessions/+page.server.ts checks access itself (requireServerCap (or the lay
+out through parent()))
+(pass) page loads under (app) > server/[id]/settings/+page.server.ts checks access itself (requireServerCap (or the lay
+out through parent()))
+(pass) page loads under (app) > server/[id]/slots/+page.server.ts checks access itself (requireServerCap (or the layout
+ through parent()))
+
+src\test\access.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\action-matrix.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\api-matrix.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\ban-enforce.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\ban-message.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\career.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\delivery-wait.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\feed-ingest.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\kill-rate-rule.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+13 | 
+14 | const PREFIX = 'warcon_test_';
+15 | const base = process.env.TEST_DATABASE_URL;
+16 | 
+17 | if (!base && process.env.CI)
+18 | 	throw new Error('TEST_DATABASE_URL is not set: CI must run the database suites.');
+                ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:18:12
+-------------------------------
+
+
+src\test\last-owner.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\load-matrix.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\match-broadcast-dry-run.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\match-players.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\matches.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\org-ban-edit.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\org-list-capabilities.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\outside-review.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\past-players.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\risk-kick-dry-run.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\risk-kick-live.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\server-bans.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\sign-in-rules.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\stats-purge.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\view.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\test\watched-joins.test.ts:
+
+# Unhandled error between tests
+-------------------------------
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+-------------------------------
+
+
+src\lib\server\access-resolve.test.ts:
+(pass) resolveAccess > managers hold every capability regardless of grants [0.06ms]
+(pass) resolveAccess > a grant yields exactly its role capabilities and name [0.07ms]
+(pass) resolveAccess > no grant and not a manager means no access
+(pass) resolveAccess > a suspended org closes the door even for its owners [0.01ms]
+(pass) resolveAccess > stored capabilities that are no longer known are ignored, not fatal [0.03ms]
+
+src\lib\server\actions.test.ts:
+(pass) changeTeam moves the faction then kills the player [0.22ms]
+(pass) changeTeam tolerates a failed kill [0.11ms]
+(pass) changeTeam requires a faction [0.05ms]
+(pass) capabilities reads the live build CL-499480 route list into feature flags [0.16ms]
+(pass) capabilities reads live build CL-501228: the same flags plus the server id [0.16ms]
+(pass) serverId reads GET /v1/server-id and always answers a string [0.10ms]
+(pass) capabilities keeps every flag on for a build that serves the full console route set [0.08ms]
+(pass) reservedAdd uses the live route when the build serves it [0.15ms]
+(pass) reservedAdd falls back to the document on no_route and writes only that key [0.52ms]
+(pass) viaConfig skips the live route; reservedRemove drops the id [0.12ms]
+(pass) a document edit the running server has not taken up is reported as pending a restart [0.18ms]
+(pass) the reserved read returns the document list beside the live one when asked [0.13ms]
+(pass) the document path reports present and absent with the codes the sync expects [0.10ms]
+(pass) MaxReservedSlots never limits the list: a third id goes in beside two held slots [0.07ms]
+(pass) a revision conflict is retried once with the fresh revision, then reported as 412 [0.12ms]
+(pass) a read-only document and a real route error are reported, not worked around [0.08ms]
+(pass) config takes the revision from the body, or from the ETag when the body lacks it [0.34ms]
+(pass) config refuses anything that is not a document, so nothing is ever PUT over a real file [0.22ms]
+(pass) a refused PUT is classified (a missing route stays no_route) and carries no body [0.19ms]
+(pass) config hides the RCON password and the feed token from whoever reads it [0.22ms]
+(pass) configApply puts the live credentials back where the placeholder was left alone [0.54ms]
+(pass) configValidate checks the document the server would get, not the placeholders [0.21ms]
+(pass) what the game says about a document never quotes a credential back [0.47ms]
+(pass) a reserved slot the document refuses says so without quoting a credential [0.33ms]
+(pass) a placeholder the server has no value for is refused before anything is written [0.09ms]
+(pass) a reserved slot written through the document keeps the real password in the file [0.09ms]
+(pass) raw does not serve the config document, however the path is spelt [0.61ms]
+(pass) raw passes on the documented headers only: a proxy in front of the listener names the RCON address in the others
+ [0.10ms]
+
+src\lib\server\api-path.test.ts:
+(pass) a path SvelteKit decodes into an API route is an API request, however it was written [0.04ms]
+
+src\lib\server\apikeys-core.test.ts:
+(pass) tokens > mint produces a wck_ token that parses back from a bearer header [0.08ms]
+(pass) tokens > rejects headers that are not one of ours [0.01ms]
+(pass) tokens > hash is stable and the hint never reveals more than eight random characters [0.12ms]
+(pass) keys > revoked beats expired; a future expiry is fine [0.05ms]
+(pass) keys > principal keeps known capabilities and string server ids only [0.05ms]
+(pass) keys > a key covers its org servers, narrowed by the allowlist, never another org [0.03ms]
+
+src\lib\server\audit.test.ts:
+(pass) redact > replaces values whose key looks like a credential [0.13ms]
+(pass) redact > scrubs Password= style lines inside text, wherever the text sits [0.05ms]
+(pass) redact > truncates long text after scrubbing [0.04ms]
+
+src\lib\server\build-info.test.ts:
+(pass) parseCommit > shortens a full hash and keeps the dirty mark [0.02ms]
+(pass) parseCommit > anything that is not a hash reads as unknown [0.03ms]
+(pass) readGitHead > a detached HEAD, a loose ref and a packed ref [7.74ms]
+(pass) readGitHead > no checkout, or a ref that points outside refs/heads, reads as unknown [3.14ms]
+(pass) resolveCommit > the environment wins, then the checkout, then the file the build wrote [5.24ms]
+(pass) this checkout reports its package version and commit [0.07ms]
+
+src\lib\server\crypto.test.ts:
+(pass) stored secrets (AES-256-GCM) > round-trips and uses a fresh iv each time [0.34ms]
+(pass) stored secrets (AES-256-GCM) > decrypts blobs written by the previous implementation [0.02ms]
+(pass) stored secrets (AES-256-GCM) > rejects a tampered blob and a changed key [0.13ms]
+(pass) stored secrets (AES-256-GCM) > validates the key up front [0.06ms]
+(pass) authSecretProblem > accepts a real secret, refuses the placeholder and short values [0.05ms]
+(pass) timingSafeEqualStr > compares by content [0.03ms]
+
+src\lib\server\csv.test.ts:
+(pass) csvCell > plain values pass through, delimiters and quotes are quoted [0.13ms]
+(pass) csvCell > formula-looking text is neutralised [0.03ms]
+(pass) csvCell > numbers are never touched, so negative durations stay numeric
+
+src\lib\server\dispatcher.test.ts:
+(pass) withServer > runs one job per server at a time, higher priority first [5.69ms]
+(pass) withServer > different servers do not wait for each other [0.12ms]
+(pass) withServer > a failing job releases the lane and rejects its caller only [0.08ms]
+
+src\lib\server\feed-core.test.ts:
+(pass) parseKill > a player kill: metres, headshot, no noise tags [0.14ms]
+(pass) parseKill > a map given by the name players know is kept under its catalog id [0.03ms]
+(pass) parseKill > an environment death has no killer, no cause and no distance [0.03ms]
+(pass) parseKill > killing yourself is a suicide even without the tag, and falls keep their context [0.02ms]
+(pass) parseKill > anything that is not a kill, or lacks a victim, id or clock, is dropped [0.03ms]
+(pass) parseKill > a malformed killer id means an unknown killer, not a refused event [0.01ms]
+(pass) shortTags > strips the two prefixes, drops the constant flags, keeps order without repeats [0.01ms]
+(pass) parseBatch > keeps the instance id and name, counts what it skipped [0.08ms]
+(pass) parseBatch > refuses what is not a batch, and batches too big to be the game [0.08ms]
+(pass) isTeamKill > same known faction on both sides [0.02ms]
+(pass) isTeamKill > never a suicide or an environment death [0.01ms]
+(pass) parseFeedBearer > accepts our shape only [0.04ms]
+
+src\lib\server\feed.test.ts:
+(pass) feed endpoint > the Url written to the config is the origin alone: the game appends /api/ingest/events [0.02ms]
+(pass) feed endpoint > the route is a handler
+
+src\lib\server\gateway-remote.test.ts:
+(pass) a worker that cannot be reached is said plainly: the runtime quotes the relay URL in some failures [5.73ms]
+
+src\lib\server\hostpolicy.test.ts:
+(pass) classifyAddress > IPv4 ranges [0.20ms]
+(pass) classifyAddress > IPv6 ranges, including addresses that wrap IPv4 [0.25ms]
+(pass) classifyAddress > rejects things that are not addresses [0.05ms]
+(pass) normaliseHost > hostnames and IPv4 pass through lowercased [0.34ms]
+(pass) normaliseHost > IPv6 literals come out bracketed [0.02ms]
+(pass) normaliseHost > refuses embedded ports, schemes and junk [0.06ms]
+(pass) assertReachableTarget > org owners get public literals only [0.29ms]
+(pass) assertReachableTarget > the site owner may use private addresses but never link-local [0.07ms]
+(pass) assertReachableTarget > hostnames are resolved before they are judged [91.17ms]
+(pass) gamePath > keeps ordinary /v1 paths and their query [0.06ms]
+(pass) gamePath > refuses anything that would leave /v1/ once a URL parser reads it [0.11ms]
+(pass) pinnedAddresses > a hostname pins to every validated address, IPv4 first for reachability [0.09ms]
+(pass) pinnedAddresses > an IPv4 literal pins to itself [0.01ms]
+(pass) pinnedAddresses > an IPv6 literal pins to itself, brackets stripped (the URL builder re-adds them) [0.02ms]
+(pass) pinnedAddresses > nothing resolved pins to nothing (the caller then falls back to the host)
+
+src\lib\server\http.test.ts:
+(pass) publicMessage > passes our own errors through [0.06ms]
+(pass) publicMessage > hides everything else behind a generic line [0.11ms]
+(pass) the stored lockout key is a keyed hash of the address, never the address [0.22ms]
+(pass) a failed query is logged without its parameters: for the servers table they are the stored RCON password and the
+ address [0.08ms]
+
+src\lib\server\kill-rate.test.ts:
+(pass) validateKillRate > needs a kill count or a headshot share [0.10ms]
+(pass) validateKillRate > fills defaults and clamps [0.03ms]
+(pass) countsForRate > hand-held weapon kills by a player only [0.05ms]
+(pass) killRateVerdict > the kill count [0.05ms]
+(pass) killRateVerdict > the headshot share, only from its minimum [0.02ms]
+(pass) killRateVerdict > 0 turns each part off [0.02ms]
+(pass) killRateStep > counts a player over the window only [0.13ms]
+(pass) killRateStep > players are counted apart [0.02ms]
+(pass) killRateStep > a flagged player is not flagged again until the cooldown has passed [0.03ms]
+(pass) pruneTracks > forgets a player once the window is empty and the cooldown over [0.06ms]
+(pass) killRateReplay > flags as the live rule would, in order [0.08ms]
+(pass) killTimes > spaces a batch out by the match clock, back from its latest kill [0.04ms]
+(pass) killTimes > a batch at one moment stays at its receipt time
+(pass) killTimes > a new match inside the batch sends its kills back, never forward [0.01ms]
+(pass) kills out of order > a late kill lands in its place, not on top of the window [0.03ms]
+(pass) kills out of order > a replay sorts what it is given [0.02ms]
+
+src\lib\server\lists-plan.test.ts:
+(pass) game error interpretation > already applied [0.06ms]
+(pass) game error interpretation > a revision conflict is not "already applied" [0.01ms]
+(pass) game error interpretation > gone [0.02ms]
+(pass) activeEntries drops removed and expired rows [0.06ms]
+(pass) planSync > wanted and absent → add [0.18ms]
+(pass) planSync > bans are never planned: the panel enforces them and leaves the game's list alone [0.04ms]
+(pass) planSync > managed, present, no longer wanted → remove; managed and absent → drop the row [0.04ms]
+(pass) planSync > a coincidental local entry stays local: no add, no state row [0.02ms]
+(pass) planSync > managed and present but recorded as failed → confirm applied [0.03ms]
+(pass) planSync > managed but gone from the server → re-add (someone removed it by hand) [0.03ms]
+(pass) planSync > a failed add waits out the backoff, then retries [0.05ms]
+(pass) planSync > every wanted reserved slot is added: the list has no cap, members included [0.03ms]
+(pass) planSync > a managed reserved slot no longer wanted is removed; a local one is left alone [0.02ms]
+(pass) isGone: a missing entry is gone, a missing route is not [0.01ms]
+(pass) isUnreachable: outages and rate limiting both stop the run; ordinary refusals do not [0.02ms]
+(pass) desiredOf > a player on the org list and the server's own list is wanted once, from the org list [0.06ms]
+
+src\lib\server\match-players.test.ts:
+(pass) a match tally > starts from the counters as they stand and follows them [0.13ms]
+(pass) a match tally > banks what was reached when a counter drops, cash included [0.03ms]
+(pass) a match tally > only a player on at the previous trusted look earns the gap [0.02ms]
+(pass) a match tally > keeps the last side that was a team, and the last name [0.02ms]
+(pass) closing a match > writes everything reached and ends the tallies [0.06ms]
+(pass) closing a match > a drop seen since the previous status look was the next match: the row stops at the bank and t
+he tally carries [0.04ms]
+(pass) the feed's record of a match > streaks, headshots, vehicle kills, the longest shot, team kills and suicides [0.1
+2ms]
+(pass) the feed's record of a match > a team kill breaks neither of its killer’s runs [0.02ms]
+(pass) the feed's record of a match > nothing at all is an empty record
+
+src\lib\server\metrics.test.ts:
+(pass) metrics > counters render in the exposition with their labels, beside the process figures [8.00ms]
+[warcon] metrics collector: database away
+(pass) metrics > collectors run before every scrape, and one that fails leaves the others standing [5.12ms]
+(pass) metrics > the endpoint is off without a token, refuses a wrong bearer and serves the right one [6.04ms]
+(pass) metrics > a refused request counts under the limit that fired [5.75ms]
+(pass) metrics > unmatched requests share one route label [0.10ms]
+
+src\lib\server\name-filter.test.ts:
+(pass) validateNameFilter > needs a policy or a word list [0.28ms]
+(pass) validateNameFilter > defaults: kick, reserved spared, a reason with {why} [0.02ms]
+(pass) validateNameFilter > words are lowercased, deduplicated and taken from lines or commas [0.02ms]
+(pass) validateNameFilter > a word is letters, digits and spaces: no patterns [0.23ms]
+(pass) validateNameFilter > extra scripts only count with the Latin policy, and only known ones [0.03ms]
+(pass) character policy > ascii keeps what a US keyboard types [0.26ms]
+(pass) character policy > latin keeps accents and refuses other alphabets [0.10ms]
+(pass) character policy > an extra script is let in beside Latin [0.04ms]
+(pass) character policy > emoji and symbols pass only when allowed [0.11ms]
+(pass) character policy > a name needs its letters [0.04ms]
+(pass) nameFilterTargets > a reserved slot is spared unless the rule says otherwise [0.08ms]
+(pass) words > sees through case, leetspeak, look-alikes, stretching and spelling out [1.31ms]
+(pass) words > doubled letters, digits, accents and other alphabets get the same treatment [0.33ms]
+(pass) words > a phrase matches with its words apart or run together [0.13ms]
+(pass) words > the admin exception wins [0.07ms]
+(pass) words > the built-in list is slurs and hate terms, with their exceptions [4.33ms]
+(skip) words > the built-in list against the system dictionary
+(pass) words > every mock joiner and demo player passes the built-in list [0.51ms]
+(pass) words > separate words are not run together [0.08ms]
+(pass) words > the player is told the kind of fault, never the word [0.08ms]
+(pass) words > no word and name can make a pattern backtrack [0.17ms]
+(pass) words > b1ack reads as black, and h1t1er as hitler [0.04ms]
+(pass) words > a hostile name does not hang the matcher [0.19ms]
+
+src\lib\server\password.test.ts:
+(pass) password hashing (Better Auth default) > round-trips and rejects wrong passwords [139.59ms]
+(pass) password hashing (Better Auth default) > salts every hash [89.83ms]
+(pass) password hashing (Better Auth default) > rejects the retired pbkdf2$ format outright [0.14ms]
+
+src\lib\server\poller-schedule.test.ts:
+(pass) phaseOffset > is stable and within the interval [0.08ms]
+(pass) phaseOffset > spreads many servers across the interval [0.57ms]
+(pass) nextDue > keeps a fixed cadence when on time [0.07ms]
+(pass) nextDue > does not burst to catch up after falling behind [0.01ms]
+(pass) pickDue > launches only servers that are due and idle, most overdue first [0.20ms]
+(pass) pickDue > respects the free slots [0.10ms]
+(pass) pickDue > offline servers never take more than their share, online ones still run [0.06ms]
+(pass) pickDue > offline share already spent leaves every slot to online servers [0.03ms]
+(pass) pickDue > offline limit is at least one slot [0.08ms]
+(pass) withHold: a live hold pushes a due time out to its end; an expired hold changes nothing [0.09ms]
+
+src\lib\server\public.test.ts:
+(pass) publicKill > keeps names, factions, weapon and distance and drops both SteamIDs [0.06ms]
+(pass) publicKill > an environment kill has no killer
+(pass) publicStatus roster > carries the SteamID as a link only while the career pages are open [0.09ms]
+
+src\lib\server\ratelimit.test.ts:
+(pass) assertRate > allows up to the limit, then answers 429 with a retry hint [0.12ms]
+(pass) assertRate > keys are independent [0.03ms]
+(pass) assertRate > old stamps fall out of the window [2.45ms]
+
+src\lib\server\rcon.test.ts:
+(pass) a route the build does not serve becomes no_route with the route in the message [0.05ms]
+(pass) a missing ban keeps its own code [0.02ms]
+(pass) a wrong method names the route [0.01ms]
+(pass) other failures pass the server message through [0.02ms]
+(pass) a 429 becomes rate_limited with the Retry-After the listener gave [0.04ms]
+(pass) Retry-After: seconds, an HTTP date, garbage, and the 1–60 s clamp [0.03ms]
+(pass) the ETag is the revision, unquoted [0.02ms]
+
+src\lib\server\risk.test.ts:
+(pass) assessRisk > an old clean account with nothing local is low [0.21ms]
+(pass) assessRisk > a missing Steam profile is unavailable, not private [0.06ms]
+(pass) assessRisk > a recent VAC ban alone is high [0.07ms]
+(pass) assessRisk > the same ban loses weight as it ages [0.03ms]
+(pass) assessRisk > banned friends and private friends add bounded, explainable evidence [0.04ms]
+(pass) assessRisk > performance needs enough recorded games or kills and cannot exceed 100 [0.06ms]
+(pass) assessRisk > a week-old private account stacks age and privacy [0.04ms]
+(pass) assessRisk > a ban elsewhere in the org is high on its own, without Steam [0.02ms]
+(pass) assessRisk > watchlist and lookalike names are medium together [0.02ms]
+(pass) assessRisk > the score is capped at 100 [0.02ms]
+(pass) accountAgeDays > whole days, never negative, null when unknown [0.02ms]
+(pass) names > normaliseName undoes leetspeak and strips noise [0.07ms]
+(pass) names > levenshtein [0.06ms]
+(pass) names > namesResemble catches the obvious dodges and not short coincidences [0.08ms]
+
+src\lib\server\seen.test.ts:
+(pass) seenFilters > defaults: everyone, newest last seen first [0.06ms]
+(pass) seenFilters > name sort defaults to ascending, others to descending [0.03ms]
+(pass) seenFilters > unknown sort, flag and since fall back [0.02ms]
+(pass) seenFilters > search is trimmed and capped [0.03ms]
+
+src\lib\server\sessions.test.ts:
+(pass) diffPresence > splits the observed list into joined, stayed and left [0.18ms]
+(pass) diffPresence > reports a player still on under a name the session does not hold [0.05ms]
+(pass) diffPresence > ignores duplicates and players without a SteamID [0.02ms]
+(pass) diffPresence > reports players who have just picked or changed faction [0.05ms]
+(pass) diffPresence > a side cleared at match start and picked again is not a new pick [0.03ms]
+(pass) diffPresence > an empty list means everyone left once the grace has passed [0.02ms]
+(pass) diffPresence > a player missing for less than the grace has neither left nor stayed [0.01ms]
+(pass) diffPresence > the list emptied at a map change and refilled is the same sessions, not joins [0.04ms]
+(pass) diffPresence > a player back inside the grace after missing a look has returned (a kick and a reconnect) [0.04ms
+]
+(pass) diffPresence > the game's holding team between matches is no pick of a side, nor a switch [0.08ms]
+(pass) diffPresence > a leave after the grace keeps the last time the player was seen [0.01ms]
+(pass) followPlayer > a session over two matches keeps the first match when the counters start again, cash included [0.
+04ms]
+(pass) followPlayer > the team played is kept when the player ends on the holding team or no side [0.03ms]
+(pass) followPlayer > the same look twice counts once, and cash spent within a match comes off [0.01ms]
+(pass) followPlayer > deaths falling alone is a new match too [0.01ms]
+(pass) followPlayer > a session reloaded after a restart keeps what earlier matches reached [0.03ms]
+
+src\lib\server\steam-openid.test.ts:
+(pass) steam openid > login url targets identifier_select under our realm [0.08ms]
+(pass) steam openid > claimed id parsing [0.07ms]
+(pass) steam openid > a valid assertion is confirmed with Steam and yields the id [0.40ms]
+(pass) steam openid > an assertion that repeats a field is refused before Steam is asked [0.69ms]
+(pass) steam openid > a repeated parameter that is not part of the assertion does not matter [0.10ms]
+(pass) steam openid > steam saying is_valid:false is refused [0.07ms]
+(pass) steam openid > a mismatched return address or identity never reaches Steam [0.07ms]
+(pass) steam openid > state cookie round trip and tamper detection [0.16ms]
+
+src\lib\server\transport.test.ts:
+(pass) gameRequest address pinning > connects to the pinned address, not by resolving the host [1.50ms]
+(pass) gameRequest address pinning > without a pinned address the unresolvable host cannot connect (the test is meaning
+ful) [47.20ms]
+(pass) gameRequest address pinning > a failure never says where RCON listens: the message reaches every viewer and the 
+Discord card [0.54ms]
+(pass) gameRequest address pinning > an answer that is not HTTP says neither the port nor the path: the runtime quotes 
+the whole URL in that error [1.05ms]
+(pass) gameRequest address pinning > falls back to the next validated address when the first is unreachable [0.48ms]
+(pass) gameRequest address pinning > a bare-IP target pins to itself and sends the normal Host [0.19ms]
+(pass) gameRequest address pinning > a command that reached the game is never sent again > the answer breaks off after 
+its headers [0.67ms]
+(pass) gameRequest address pinning > a command that reached the game is never sent again > the connection drops with th
+e request sent and nothing answered [0.45ms]
+
+src\lib\server\triggers-match-broadcast.test.ts:
+(pass) matchBroadcastStep > an end seen with the server empty is held, then announced once players are back [0.04ms]
+(pass) matchBroadcastStep > a scores reset then the map change keeps the result of the first [0.02ms]
+(pass) matchBroadcastStep > announced at once when the players are already on; dropped after the hold [0.02ms]
+(pass) the match broadcast rule > a match that ends while the next map loads (nobody on) is announced when players are 
+back [0.61ms]
+
+src\lib\server\triggers-name-filter.test.ts:
+(pass) the name filter rule > judges a name that arrives after the join: a clan tag shown a look later [0.28ms]
+(pass) the name filter rule > still judges joiners, and spares a reserved slot on a rename too [0.08ms]
+(pass) the name filter rule > a kicked player back inside the leave grace is judged again, not taken as the same stay [
+0.06ms]
+(pass) the name filter rule > an alert-only rule does not alert again for everyone back after a map change [0.04ms]
+(pass) the name filter rule > a look with no joiner and no new name does nothing [0.03ms]
+
+src\lib\server\triggers-risk-kick.test.ts:
+(pass) riskCheckTargets > joiners and returned players are judged at every look, everyone else at a sweep [0.07ms]
+(pass) the risk kick rule > kicks a matching player who is on the server, not only one who has just joined [0.22ms]
+(pass) the risk kick rule > judges nobody when nobody is due [0.04ms]
+
+src\lib\server\triggers.test.ts:
+(pass) validateConfig > welcome needs a message and trims it to 200 characters [0.05ms]
+(pass) validateConfig > faction_change needs a message [0.02ms]
+(pass) validateConfig > broadcast accepts a newline-separated string and drops blanks [0.08ms]
+(pass) validateConfig > broadcast takes an optional player ceiling that cannot sit below the floor [0.03ms]
+(pass) validateConfig > empty_reset needs a map and a wait [0.04ms]
+(pass) validateConfig > restart_notice needs the main message, and a heads-up message when the heads-up is on [0.04ms]
+(pass) validateConfig > risk_kick refuses an empty rule set and defaults the reason [0.09ms]
+(pass) validateConfig > ping_kick validates the ping and duration and supplies a reason [0.04ms]
+(pass) validateConfig > seed_reward needs a seed time that fits its window, and fills in the rest [0.05ms]
+(pass) validateConfig > seed_reward keeps a slot on this server only when asked, org-wide otherwise [0.02ms]
+(pass) pingKickStep > fires only after a continuous high-ping duration, and only once per streak [0.11ms]
+(pass) pingKickStep > normal or missing ping and leaving reset the streak [0.03ms]
+(pass) validateConfig match_broadcast > needs at least one of the two messages and defaults the player floor [0.07ms]
+(pass) seedRule > is the seeding rule with the highest threshold, or null without one [0.05ms]
+(pass) seed replay > lowStretches merges neighbouring low samples and ends the last one at the window end [0.06ms]
+(pass) seed replay > fullMoments are the samples at or over the fill line, or the server limit without one [0.05ms]
+(pass) seed replay > seedReplay banks pending low time at a full moment for players still on [0.15ms]
+(pass) seed replay > seedReplay without the fill requirement credits every low minute as it passes [0.02ms]
+(pass) broadcastWanted > a floor alone, a band, and rules saved before the ceiling existed [0.03ms]
+(pass) welcomeTargets > whispers joiners by default, and only first faction picks when waiting for one [0.03ms]
+(pass) welcomeTargets > first-visit applies to whichever list is in use [0.02ms]
+(pass) welcomeTargets > faction changes are switches only, never the first pick [0.02ms]
+(pass) renderTemplate > fills placeholders case-insensitively and leaves unknown ones [0.02ms]
+(pass) renderTemplate > clips to 200 characters
+(pass) riskKickVerdict > reserved slots are spared [0.02ms]
+(pass) riskKickVerdict > order: ban elsewhere, watchlist, VAC, age [0.08ms]
+(pass) riskKickVerdict > ban age window ignores older VAC and game bans, while 0 means forever [0.03ms]
+(pass) riskKickVerdict > a ban with unknown age is still enforced when an age window is set
+(pass) riskKickVerdict > a rule saved before the ban age field existed still considers all bans [0.01ms]
+(pass) riskKickVerdict > private profiles pass unless asked to fail [0.01ms]
+(pass) riskKickVerdict > without Steam only the local rules apply [0.01ms]
+(pass) riskKickVerdict > the risk level catches combinations no single rule covers [0.12ms]
+(pass) riskKickVerdict > recorded games count towards the risk-level rule [0.03ms]
+(pass) riskKickVerdict > the risk level works from local signals alone and says when Steam was not checked [0.03ms]
+(pass) onTarget > map alone when the rule names no experiences, else the set must match [0.04ms]
+(pass) restartNoticeStage > nothing before the heads-up, nothing without a start time or players [0.07ms]
+(pass) restartNoticeStage > the heads-up goes once inside the lead window, then the main message once due [0.04ms]
+(pass) restartNoticeStage > a start that moves by a slow look is the same run: nothing is sent again [0.03ms]
+(pass) restartNoticeStage > a missed heads-up is skipped, not sent late, once the window is open [0.01ms]
+(pass) restartNoticeStage > repeat resends the main message on its cadence while the window stays open [0.03ms]
+(pass) restartNoticeStage > a new game start resets the cycle [0.01ms]
+(pass) restartNoticeStage > no heads-up when leadMinutes is 0 [0.01ms]
+(pass) team_kill > validateConfig needs at least one threshold, in order, and fills the texts [0.07ms]
+(pass) team_kill > teamKillStage: a whisper from warnAt on, a kick from kickAt on [0.03ms]
+(pass) matchBoundary > no previous look is never a boundary [0.06ms]
+(pass) matchBoundary > the same match: scores rising or level on the same map [0.03ms]
+(pass) matchBoundary > the scores falling back is a round ending on the same map, leader as winner [0.04ms]
+(pass) matchBoundary > a look that lands a tick into the next round still counts: the total fell [0.01ms]
+(pass) matchBoundary > a map change ends the match whatever the scores did
+(pass) matchBoundary > the match clock going backwards ends it on builds that send one [0.02ms]
+(pass) matchBoundary > a tie has leaders but no winner; a match nobody scored in has neither [0.04ms]
+(pass) matchBroadcastMessages > end message first, then start, with the result filled in [0.04ms]
+(pass) matchBroadcastMessages > a tie names both; nobody scoring drops the end message; a blank message is skipped [0.0
+6ms]
+(pass) matchBroadcastMessages > nothing under the player floor
+(pass) matchBroadcastMessages > {mvp} and {top} come from the players' lines; a tie names both; nobody killing leaves t
+hem empty [0.06ms]
+(pass) matchReplay > finds the resets and map changes, across a blip but not an outage or an unwatched gap [0.10ms]
+
+src\lib\server\webhook-status-core.test.ts:
+(pass) buildStatusEmbed > slots the server holds back for reserved players sit beside the public cap [1.24ms]
+(pass) buildStatusEmbed > the card: bars, map line, faction rows, columns, art and author [0.24ms]
+(pass) buildStatusEmbed > the bar is green when people play with no scores yet, and falls back by faction name [0.13ms]
+(pass) buildStatusEmbed > an empty server is grey, has no columns, keeps the map; no images over http [0.06ms]
+(pass) buildStatusEmbed > an unreachable server is red with the error, the clocks and the last map as thumbnail [0.04ms
+]
+(pass) buildStatusEmbed > a server never looked at says so [0.01ms]
+(pass) buildStatusEmbed > names are escaped and the unplaced get their own row [0.11ms]
+(pass) buildStatusEmbed > a full 100-slot server stays inside every limit [0.32ms]
+(pass) map art > a live server names the map for display; the art lives under the id [0.11ms]
+(pass) map art > a lighting with no art falls back to day clear; an unknown map has no picture [0.27ms]
+(pass) styles > compact: thumbnail, one score line, counts per faction, the top three and the clock [0.16ms]
+(pass) styles > scoreboard: bars first, one ranked table across factions, top 20 noted [0.26ms]
+(pass) styles > the style is part of the change key [0.20ms]
+(pass) helpers > fitLines keeps whole lines and says how many are left [0.11ms]
+(pass) helpers > squareFor picks by colour, then by name, then by index [0.03ms]
+(pass) helpers > factionFields orders by score and players by kills [0.09ms]
+(pass) helpers > modeLabel and escapeMarkdown [0.05ms]
+(pass) statusMessage > one embed, empty content, and a key that ignores the clocks [0.35ms]
+(pass) join code > a code-block field (copyable in Discord) just above the clock, in every style [0.55ms]
+(pass) join code > the unreachable card keeps it [0.06ms]
+(pass) join code > the code is part of the change key, so the message is edited once when it appears [0.15ms]
+(pass) uptime > the start time renders as a relative clock above the update clock, in every style [0.22ms]
+(pass) uptime > no start time, no line [0.07ms]
+(pass) uptime > past 24 hours the card says the server restarts after this round [0.16ms]
+(pass) uptime > the start time and the restart note are in the change key; the ticking uptime is not [0.34ms]
+(pass) score cap on live builds > a status without a cap uses the game default for the line and the bars [0.06ms]
+(pass) links > a public link goes out only while its page is on; the panel link whenever asked [0.07ms]
+(pass) links > the title points at the first link and the rest close the body; no links, no url [0.29ms]
+(pass) links > the links are part of the change key [0.32ms]
+(pass) clampInterval > 30 to 300 seconds, whole, default 60 [0.05ms]
+
+src\lib\server\webhooks.test.ts:
+(pass) validateWebhookUrl > accepts Discord webhook URLs and hides the token in the hint [0.09ms]
+(pass) validateWebhookUrl > refuses anything that is not a Discord webhook [0.08ms]
+(pass) classify > routes rows to event classes [0.05ms]
+(pass) buildEmbed > names the action, actor, target and server [0.07ms]
+(pass) buildEmbed > failures are red and say so [0.02ms]
+(pass) buildEmbed > a server added, refused or deleted never says where RCON listens [0.04ms]
+(pass) buildTeamKillEmbed > names both players, the weapon, the distance and the server [0.07ms]
+(pass) watched join and dossier links > a player's page, only with an origin and a SteamID [0.03ms]
+(pass) watched join and dossier links > the post names the player, why, and where, and opens their page [0.06ms]
+34 | 		connectionLimit: 1,
+35 | 		// Every timestamp is UTC, as the production pool is configured.
+36 | 		timezone: '+00:00',
+37 | 		decimalNumbers: true,
+38 | 		supportBigNumbers: true,
+39 | 		host: u.hostname,
+             ^
+error: TEST_DATABASE_URL is not set: CI must run the database suites.
+      at E:\电脑\新建文件夹\zg\zg\warcon-main\src\test\db.ts:39:9
+(fail) (unnamed) [0.65ms]
+
+1 tests skipped:
+(skip) words > the built-in list against the system dictionary
+
+
+30 tests failed:
+(fail) can > summary uses labels in catalogue order [0.61ms]
+(fail) fmtSpan > picks the coarsest unit that still reads [0.46ms]
+(fail) fmtAgo > reads as a status line [0.39ms]
+(fail) fmtAgo > takes ISO strings and never goes negative [0.31ms]
+(fail) (unnamed) [0.65ms]
+
+ 493 pass
+ 1 skip
+ 30 fail
+ 25 errors
+ 1622 expect() calls
+Ran 524 tests across 78 files. [2.47s]
