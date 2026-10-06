@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-# Warcon
+# Warcon中文汉话
 
 A self-hostable, multi-server RCON panel for **WARDOGS** dedicated servers. Bun, SvelteKit and
 MySQL 8, deployed behind Nginx with Docker Compose. Run it beside your game server, on any VPS, or
